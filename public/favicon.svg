@@ -1,0 +1,38 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  width="64"
+  height="64"
+>
+  <!-- Outer galaxy ring -->
+  <circle
+    cx="32"
+    cy="32"
+    r="26"
+    fill="none"
+    stroke="#000000"
+    stroke-width="4"
+    opacity="0.9"
+  />
+
+  <!-- Inner spiral -->
+  <path
+    d="M32 12
+       C20 14, 14 22, 16 32
+       C18 44, 28 50, 38 46
+       C46 42, 48 32, 42 26
+       C38 22, 32 22, 28 26"
+    fill="none"
+    stroke="#000000"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+
+  <!-- Core star -->
+  <circle
+    cx="32"
+    cy="32"
+    r="3"
+    fill="#000000"
+  />
+</svg>
