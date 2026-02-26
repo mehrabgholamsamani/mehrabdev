@@ -4,9 +4,6 @@ This repository contains the source code for my personal portfolio website.
 
 The goal of this project is **not just visual presentation**, but to demonstrate **engineering decisions, architectural thinking, performance awareness, and production-ready frontend practices** in a real-world context.
 
-Live site: https://your-domain-here  
-(Replace with your actual domain)
-
 ---
 
 ## ✨ Overview
@@ -51,7 +48,7 @@ If an animation does not improve understanding or feel, it is removed.
 ---
 
 ### 3. Engineering Over Templates
-This is **not** a UI kit or theme slapped together.
+well, this is **not** a UI kit or theme slapped together :)
 
 Key systems were built manually:
 - Custom canvas-based galaxy sphere
@@ -65,7 +62,7 @@ The result is a site that feels *crafted*, not assembled.
 
 ## 🌌 Galaxy Sphere (Canvas)
 
-The hero sphere is rendered using **HTML Canvas**, not WebGL or Three.js.
+The hero sphere is rendered using **HTML Canvas**, not WebGL or Three.js, because i felt like challanging myself, beside that you may ask
 
 ### Why Canvas?
 - Lower overhead
