@@ -59,6 +59,7 @@ export function initPortfolio(): () => void {
       let RADIUS = 180;
 
       const isSmall = matchMedia("(max-width: 1000px)").matches;
+      const isMobile = matchMedia("(max-width: 600px)").matches;
       const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const POINT_COUNT = reduceMotion ? 0 : (isSmall ? 340 : 572);
@@ -157,7 +158,7 @@ export function initPortfolio(): () => void {
       const gctx = glowSprite.getContext("2d");
 
       function buildSprites() {
-        const S = 22;
+        const S = isMobile ? 48 : 34;
         sprite0.width = sprite0.height = S;
         sprite1.width = sprite1.height = S;
 
@@ -166,13 +167,13 @@ export function initPortfolio(): () => void {
           s.fillStyle = "#fff";
           s.textAlign = "center";
           s.textBaseline = "middle";
-          s.font = "16px sans-serif";
+          s.font = `${isMobile ? 36 : 24}px sans-serif`;
         });
 
         sctx0.fillText("✵", S / 2, S / 2);
         sctx1.fillText("★", S / 2, S / 2);
 
-        const G = 72;
+        const G = isMobile ? 126 : 106;
         glowSprite.width = glowSprite.height = G;
         const grad = gctx.createRadialGradient(G / 2, G / 2, 0, G / 2, G / 2, G / 2);
         grad.addColorStop(0, "rgba(255,255,255,0.40)");
@@ -327,9 +328,9 @@ export function initPortfolio(): () => void {
 
         const minSide = Math.min(width, height);
         const isMobilePortrait = matchMedia("(max-width: 600px)").matches;
-        RADIUS = Math.max(80, minSide * (isMobilePortrait ? 0.54 : 0.42));
+        RADIUS = Math.max(80, minSide * (isMobilePortrait ? 0.62 : 0.42));
         // Cap so sphere never overflows canvas top/bottom (front-face y = RADIUS + height/2 ≤ height)
-        RADIUS = Math.min(RADIUS, height * (isMobilePortrait ? 0.49 : 0.44));
+        RADIUS = Math.min(RADIUS, height * (isMobilePortrait ? 0.46 : 0.44));
 
         generateSphereTargets();
         generateConeTargets();
@@ -500,8 +501,8 @@ export function initPortfolio(): () => void {
         }
       }
 
-      const REPEL_RADIUS = 140;  // screen-pixel radius of the attract field
-      const REPEL_STRENGTH = 3;  // force per frame (steady displacement = 3/0.095 ≈ 32 units)
+      const REPEL_RADIUS = 160;  // screen-pixel radius of the attract field
+      const REPEL_STRENGTH = 5;  // force per frame (steady displacement = 5/0.095 ≈ 53 units)
 
       function applyRepel() {
         // Recompute the same rotation matrices used by drawFrame this frame
@@ -695,7 +696,7 @@ export function initPortfolio(): () => void {
           const x = x1 * scale + centerX + drift;
           const y = y2 * scale + centerY;
 
-          const size = Math.max(6, Math.min(19, 15.5 * scale));
+          const size = Math.max(isMobile ? 15 : 9, Math.min(isMobile ? 44 : 29, (isMobile ? 34 : 22) * scale));
 
           const depthAlpha = 0.12 + depth01 * 0.95;
           const scaleAlpha = Math.min(1, Math.max(0.18, scale));

@@ -54,6 +54,8 @@ const jsonLd = {
   ],
 };
 
+const jsonLdString = JSON.stringify(jsonLd);
+
 /* ── Component ───────────────────────────────────────────────────────────── */
 export function SeoHead() {
   return (
@@ -86,7 +88,7 @@ export function SeoHead() {
 
       {/* ── JSON-LD structured data ───────────────────────────────────────── */}
       <script type="application/ld+json">
-        {JSON.stringify(jsonLd)}
+        {jsonLdString}
       </script>
     </Helmet>
   );

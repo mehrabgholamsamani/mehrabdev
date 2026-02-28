@@ -1,5 +1,8 @@
 import React from "react";
 
+const marqueeStyle1 = { "--duration": "55s", "--direction": "normal" } as React.CSSProperties;
+const marqueeStyle2 = { "--duration": "75s", "--direction": "reverse" } as React.CSSProperties;
+
 export function Skills() {
   return (
     <section className="skills-section" id="skills">
@@ -16,7 +19,7 @@ export function Skills() {
         </div>
 
         <div className="skills-marquee-wrap" id="skillsMarqueeWrap">
-          <div className="skills-marquee" style={{ "--duration": "55s", "--direction": "normal" } as React.CSSProperties}>
+          <div className="skills-marquee" style={marqueeStyle1}>
             <div className="skills-track">
               <div className="skills-list">
                 <div className="skills-chip"><span className="skills-icon" data-icon="html" /><span>HTML5</span></div>
@@ -44,7 +47,7 @@ export function Skills() {
             </div>
           </div>
 
-          <div className="skills-marquee" style={{ "--duration": "75s", "--direction": "reverse" } as React.CSSProperties}>
+          <div className="skills-marquee" style={marqueeStyle2}>
             <div className="skills-track">
               <div className="skills-list">
                 <div className="skills-chip"><span className="skills-icon" data-icon="tailwind" /><span>Tailwind CSS</span></div>

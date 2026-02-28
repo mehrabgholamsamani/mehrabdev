@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import "./style.css";
 import { initPortfolio } from "./legacy/initPortfolio";
 
@@ -21,20 +21,24 @@ export default function App() {
     return () => cleanup();
   }, []);
 
-  const email = "mehrabgholamsamani@gmail.com"; 
+  const openModal = useCallback(() => {
+    document.getElementById("hcqModal")?.classList.add("open");
+  }, []);
+
+  const email = "mehrabgholamsamani@gmail.com";
   return (
     <>
       <SeoHead />
       <GalaxyBackground />
 
-      <Header onQuickContact={() => document.getElementById("hcqModal")?.classList.add("open")} />
-      <Hero onQuickContact={() => document.getElementById("hcqModal")?.classList.add("open")} />
+      <Header onQuickContact={openModal} />
+      <Hero onQuickContact={openModal} />
 
       <Experience />
       <Projects />
       <Testimonials />
       <Skills />
-      <Contact email={email} onQuickContact={() => document.getElementById("hcqModal")?.classList.add("open")} />
+      <Contact email={email} onQuickContact={openModal} />
       <Footer />
 
       <QuickContactModal email={email} />

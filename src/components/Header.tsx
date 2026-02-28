@@ -18,7 +18,7 @@ export function Header({ onQuickContact }: HeaderProps) {
   const [photoOpen, setPhotoOpen] = useState(false);
 
   const tags = useMemo(
-    () => ["React", "TypeScript", "REST APIs", "React Native", "Vitest"],
+    () => ["React", "Node.js", "TypeScript", "REST APIs", "MongoDB"],
     []
   );
 
@@ -165,8 +165,7 @@ export function Header({ onQuickContact }: HeaderProps) {
                   </div>
 
                   <p className="profile-popover__bio">
-                    I build <strong>scalable</strong>, <strong>high‑performance</strong> interfaces with React + TypeScript.
-                    Strong focus on <strong>UI/UX</strong>, clean component architecture, and smooth API integrations.
+                    I build <strong>end-to-end</strong> web apps — React + TypeScript on the front, Node.js &amp; Express APIs on the back. Focused on <strong>clean architecture</strong>, performance, and shipping production-ready products.
                   </p>
 
                   <div className="profile-popover__actions" aria-label="Quick links">
