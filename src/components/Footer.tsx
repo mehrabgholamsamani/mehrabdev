@@ -62,7 +62,7 @@ export function Footer() {
         </div>
 
         <div className="footer-text">
-          © <span id="year" /> Mehrab Samani | Crafted with <span className="footer-heart">❤️</span> using TypeScript and React
+          © <span id="year" /> Mehrab Gholamsamani (Mehrab Samani · <span lang="fa">مهراب غلامسامانی</span>) | Crafted with <span className="footer-heart">❤️</span> using React &amp; TypeScript
         </div>
       </div>
     </footer>

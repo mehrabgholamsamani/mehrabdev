@@ -3,6 +3,7 @@
 
   html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 html::before{
   content:"";
@@ -141,6 +142,21 @@ a:hover{
   outline: 2px solid rgba(125,211,252,0.55);
   outline-offset: 3px;
   border-radius: 10px;
+}
+
+/* Visually hidden — accessible to crawlers and screen readers but invisible.
+   Use for alternate-script names or off-screen labels.
+   Do NOT use display:none or visibility:hidden (crawlers skip those). */
+.visually-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .hero-section{ margin-top: 26px; }
@@ -392,7 +408,26 @@ a:hover{
       line-height: 1.65;
       color: #e5e7eb;
       font-size: 1rem;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
+    }
+
+    .hero-keyword-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .hero-keyword-list li {
+      color: #9ca3af;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      line-height: 1.4;
     }
 
     .actions {
@@ -543,7 +578,7 @@ a:hover{
       line-height: 1;
     }
 
-    .testimonial-content { position: relative; }
+    .testimonial-content { position: relative; overflow: hidden; }
 
     .testimonial-content p {
       font-size: 18px;
@@ -711,8 +746,8 @@ a:hover{
     }
 
     @media (max-width: 900px) {
-      .nav-btn.left { left: -20px; }
-      .nav-btn.right { right: -20px; }
+      .nav-btn.left { left: 0; }
+      .nav-btn.right { right: 0; }
     }
 
     .section-divider {
@@ -1090,6 +1125,7 @@ a:hover{
       .actions { justify-content: center; }
       .right { height: 300px; }
       .left p { margin-left: auto; margin-right: auto; }
+      .hero-keyword-list { justify-content: center; }
     }
 
     @media (max-width: 900px) {
@@ -2281,6 +2317,148 @@ section, main, footer{
   .profile-popover::before{ left: 24px; }
 }
 
+/* ============================================================
+   PHOTO LIGHTBOX MODAL
+   ============================================================ */
+
+.photo-lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: lbox-bg-in 200ms ease forwards;
+}
+
+@keyframes lbox-bg-in{
+  from{ opacity: 0; }
+  to  { opacity: 1; }
+}
+
+.photo-lightbox__card{
+  position: relative;
+  width: min(360px, 100%);
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top-color: rgba(52,211,153,0.22);
+  background: #0d0d0d;
+  box-shadow:
+    0 0 0 1px rgba(52,211,153,0.05) inset,
+    0 40px 100px rgba(0,0,0,0.82),
+    0 8px 32px rgba(0,0,0,0.55);
+  animation: lbox-card-in 300ms cubic-bezier(0.34,1.5,0.64,1) forwards;
+}
+
+@keyframes lbox-card-in{
+  from{ opacity:0; transform: scale(0.90) translateY(18px); }
+  to  { opacity:1; transform: scale(1)    translateY(0);    }
+}
+
+.photo-lightbox__photo-wrap{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+/* Gradient vignette — fades photo into the dark info section */
+.photo-lightbox__photo-wrap::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 45%,
+    rgba(13,13,13,0.70) 78%,
+    #0d0d0d 100%
+  );
+  pointer-events: none;
+}
+
+.photo-lightbox__img{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 15%;
+}
+
+.photo-lightbox__info{
+  padding: 0 22px 28px;
+  margin-top: -36px;
+  position: relative;
+  z-index: 1;
+}
+
+.photo-lightbox__name{
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.photo-lightbox__role{
+  font-size: 0.87rem;
+  color: rgba(255,255,255,0.50);
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+
+.photo-lightbox__dot{ opacity: 0.4; padding: 0 3px; }
+
+.photo-lightbox__badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(52,211,153,0.28);
+  background: rgba(52,211,153,0.09);
+  color: rgba(167,243,208,0.92);
+  letter-spacing: 0.01em;
+}
+
+/* Glass close button */
+.photo-lightbox__close{
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.52);
+  color: rgba(255,255,255,0.72);
+  font-size: 0.78rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.photo-lightbox__close:hover{
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(255,255,255,0.32);
+  color: #ffffff;
+}
+
+.photo-lightbox__close:focus-visible{
+  outline: 2px solid rgba(52,211,153,0.55);
+  outline-offset: 3px;
+}
+
 .section-eyebrow{
   font-size: 0.75rem;
   letter-spacing: 0.22em;
@@ -3074,25 +3252,32 @@ section, main, footer{
     font-size: clamp(1.05rem, 4.8vw, 1.35rem);
   }
 
-  /* Section titles — reduced to restore hierarchy */
+  /* Eyebrow labels — smaller so titles dominate */
+  .section-eyebrow,
+  .testi-eyebrow {
+    font-size: 0.6rem;
+  }
+
+  /* Section titles — larger to stand out clearly above eyebrows */
   .section-title {
-    font-size: clamp(1.35rem, 5vw, 1.75rem);
+    font-size: clamp(1.75rem, 7vw, 2.1rem);
   }
 
   .testi-title {
-    font-size: clamp(1.35rem, 5vw, 1.75rem);
+    font-size: clamp(1.75rem, 7vw, 2.1rem);
   }
 
-  /* Hero canvas — tall enough that RADIUS=107px fits at 375px phone */
+  /* Hero canvas — bigger on mobile for better visibility */
   .right {
-    height: clamp(240px, 68vw, 320px) !important;
+    height: clamp(380px, 95vw, 480px) !important;
     min-height: 0 !important;
+    margin-top: 24px;
   }
 
   /* Hero section — no forced full-screen height on mobile */
   .hero-section {
     min-height: 0 !important;
-    padding: 24px 0 44px;
+    padding: 32px 0 64px;
   }
 
   /* Reduce the upward shift on mobile */
@@ -3100,21 +3285,34 @@ section, main, footer{
     transform: translateY(-6px);
   }
 
-  /* Action buttons — stack full-width for easy tapping */
+  /* Action buttons — side by side on mobile, smaller */
   .actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 
   .actions .btn {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    font-size: 0.82rem;
+    padding: 10px 18px;
     text-align: center;
   }
 
   .actions .btn-cv {
-    padding: 16px 56px 16px 26px;
+    padding: 10px 20px;
+  }
+
+  /* Hero keyword list — compact on small screens */
+  .hero-keyword-list {
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+
+  .hero-keyword-list li {
+    font-size: 0.72rem;
+    padding: 3px 8px;
   }
 
   /* Hero availability badge */
@@ -3131,12 +3329,13 @@ section, main, footer{
   }
 
   .left p {
+    font-size: clamp(0.8rem, 3.6vw, 0.92rem) !important;
     margin-bottom: 20px !important;
   }
 
   /* Experience */
   .experience-section {
-    padding-bottom: 36px;
+    padding-bottom: 64px;
   }
 
   .exp-tabs {
@@ -3144,15 +3343,15 @@ section, main, footer{
     margin-bottom: 16px;
   }
 
-  /* Section dividers — 20px clearance instead of 52px */
+  /* Section dividers */
   .section-divider {
-    margin: 20px auto;
+    margin: 32px auto;
   }
 
   /* Projects — were missing mobile overrides entirely */
   .projects-section {
-    margin-top: 32px !important;
-    padding-bottom: 40px !important;
+    margin-top: 72px !important;
+    padding-bottom: 64px !important;
   }
 
   .projects-grid {
@@ -3160,13 +3359,13 @@ section, main, footer{
   }
 
   .project-thumb {
-    height: 160px;
+    height: 120px;
   }
 
   /* Testimonials */
   .testimonials-section {
-    padding-top: clamp(48px, 10vw, 80px) !important;
-    padding-bottom: clamp(48px, 10vw, 80px) !important;
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
     margin-top: 0 !important;
   }
 
@@ -3176,10 +3375,10 @@ section, main, footer{
 
   /* Skills */
   .skills-section {
-    margin-top: 40px !important;
-    padding-top: 16px !important;
-    padding-bottom: 48px !important;
-    margin-bottom: 48px !important;
+    margin-top: 72px !important;
+    padding-top: 48px !important;
+    padding-bottom: 64px !important;
+    margin-bottom: 0 !important;
   }
 
   .skills-section .section-head {
@@ -3225,17 +3424,38 @@ section, main, footer{
 
   /* Contact */
   .contact2-section {
-    margin-top: 32px;
-    padding-bottom: 12px;
+    margin-top: 72px;
+    padding-bottom: 64px;
   }
 
   /* Footer */
   .site-footer {
-    padding: 32px 0 20px;
+    padding: 28px 0 20px;
   }
 
   .footer-divider {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+  }
+
+  .footer-icons {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .footer-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .footer-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .footer-text {
+    font-size: 0.72rem;
+    line-height: 1.5;
   }
 
   /* ---- Section eyebrow decorative lines — shorter so text doesn't overflow ---- */
@@ -3248,7 +3468,7 @@ section, main, footer{
 
   /* ---- Experience section ---- */
   .experience-section {
-    margin-top: 48px;
+    margin-top: 72px;
   }
 
   /* Tabs — slimmer touch target, smaller text */
@@ -3289,16 +3509,16 @@ section, main, footer{
     margin-top: 4px;
   }
 
-  /* Bullet list — tighter and smaller for narrow mobile columns */
+  /* Bullet list — smaller font + tighter indent so lines wrap less */
   .exp-card .entry ul {
     margin-top: 10px;
-    padding-left: 16px;
+    padding-left: 12px;
   }
 
   .exp-card .entry ul li {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    line-height: 1.48;
+    margin-bottom: 4px;
   }
 
   /* Education meta row */
@@ -3309,9 +3529,23 @@ section, main, footer{
 
   /* ---- Testimonials ---- */
   .testimonial-content p {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 24px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .translated {
+    font-size: 0.75rem;
+    margin-top: 8px;
+  }
+
+  #testimonial-name {
+    font-size: 0.9rem;
+  }
+
+  #testimonial-role {
+    font-size: 0.78rem;
+    margin-top: 3px;
   }
 
   /* Nav buttons smaller → wrapper padding can be tighter */
@@ -3321,7 +3555,7 @@ section, main, footer{
   }
 
   .testimonial-wrapper {
-    padding: 0 38px;
+    padding: 0 28px;
   }
 
   .nav-btn.left { left: 0; }
@@ -3329,72 +3563,128 @@ section, main, footer{
 
   /* ---- Projects ---- */
   .project-content {
-    padding: 20px 18px;
+    padding: 14px 16px;
   }
 
   .project-content h3 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+
+  .project-tagline {
+    font-size: 0.82rem;
+    margin-top: -3px;
+    margin-bottom: 8px;
+  }
+
+  .project-content p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .project-tags {
+    gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .project-tags span {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+
+  .project-links {
+    gap: 12px;
+  }
+
+  .project-link {
+    font-size: 0.82rem;
+  }
+
+  .project-link-live {
+    padding: 6px 10px;
   }
 
   /* ---- Contact ---- */
 
   .contact2-card {
-    padding: 20px 18px;
+    padding: 18px 14px;
     gap: 14px;
+    border-radius: 14px;
   }
 
-  /* Eyebrow row */
+  /* "Available for work" status row */
   .contact2-eyebrow {
-    font-size: 0.82rem;
-    margin-bottom: 7px;
+    font-size: 0.78rem;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
-  /* Heading */
+  .contact2-status {
+    width: 8px;
+    height: 8px;
+    margin-left: 2px;
+  }
+
+  /* Card heading */
   .contact2-heading {
-    font-size: 1.15rem;
+    font-size: 1.28rem;
+    line-height: 1.25;
     margin-bottom: 8px;
   }
 
-  /* Sub-text — reduce line-height on narrow column */
+  /* Sub-text */
   .contact2-sub {
-    font-size: 0.93rem;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    line-height: 1.6;
     margin-bottom: 12px;
+    max-width: none;
   }
 
-  /* Service chips — read-only labels, no touch-target sizing needed */
+  /* Service chips */
   .contact2-chips {
-    gap: 8px;
+    gap: 6px;
   }
 
   .contact2-chip {
-    padding: 5px 10px;
-    font-size: 0.82rem;
+    padding: 5px 9px;
+    font-size: 0.78rem;
   }
 
-  /* Inner box — less nested padding */
+  /* Inner email box */
   .contact2-box {
-    padding: 14px;
+    padding: 12px;
   }
 
-  /* Label */
   .contact2-label {
-    font-size: 0.82rem;
-    margin-bottom: 7px;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
   }
 
-  /* Email button — still comfortable tap target at 11px vertical */
+  /* Email button — truncate long address instead of overflowing */
   .contact2-email {
-    padding: 11px 12px;
-    font-size: 0.93rem;
+    padding: 10px 11px;
+    font-size: 0.82rem;
+    overflow: hidden;
+  }
+
+  #emailText {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .contact2-copyhint {
-    font-size: 0.8rem;
-    margin-top: 4px;
+    font-size: 0.75rem;
+    margin-top: 3px;
   }
 
-  /* Actions: primary full-width, LinkedIn+GitHub side-by-side */
+  /* Actions: "Send email" full-width, LinkedIn + GitHub side-by-side */
   .contact2-actions {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
@@ -3405,16 +3695,198 @@ section, main, footer{
     grid-column: 1 / -1;
   }
 
-  /* Buttons — slightly slimmer */
   .contact2-btn {
-    padding: 10px 14px;
-    font-size: 0.88rem;
+    padding: 9px 12px;
+    font-size: 0.85rem;
   }
 
   /* Note text */
   .contact2-note {
-    font-size: 0.83rem;
-    margin-top: 7px;
+    font-size: 0.78rem;
+    margin-top: 6px;
+  }
+
+  /* ---- Quick Contact Modal (bottom sheet) ---- */
+
+  /* Reposition as bottom sheet instead of centered modal */
+  .hcq-panel {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 88vh;
+    border-radius: 20px 20px 0 0;
+    transform: translateY(100%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: none;
+    will-change: transform;
+  }
+
+  /* Slide-up + fade animation when opened */
+  .hcq-modal.hcq-open .hcq-panel {
+    transform: translateY(0);
+    animation: hcq-sheet-in 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Backdrop fades in behind the sheet */
+  .hcq-modal.hcq-open .hcq-backdrop {
+    animation: hcq-backdrop-fade 320ms ease both;
+  }
+
+  /* Slide-down + fade when closing (hcq-closing beats hcq-open — same specificity, later source) */
+  .hcq-modal.hcq-closing .hcq-panel {
+    animation: hcq-sheet-out 300ms cubic-bezier(0.4, 0, 1, 1) both;
+  }
+
+  .hcq-modal.hcq-closing .hcq-backdrop {
+    animation: hcq-backdrop-fade-out 260ms ease both;
+  }
+
+  /* Drag-handle pill */
+  .hcq-panel::before {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    margin: 10px auto 0;
+  }
+
+  /* Topbar */
+  .hcq-topbar {
+    padding: 8px 12px;
+  }
+
+  .hcq-dots { gap: 6px; }
+
+  .hcq-dots span {
+    width: 10px;
+    height: 10px;
+  }
+
+  .hcq-title { font-size: 0.85rem; }
+
+  .hcq-x {
+    width: 30px;
+    height: 26px;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+
+  /* Body */
+  .hcq-body {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  /* Terminal block */
+  .hcq-terminal {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .hcq-line {
+    font-size: 0.78rem;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .hcq-label {
+    font-size: 0.78rem;
+    margin-bottom: 6px;
+  }
+
+  .hcq-textarea {
+    font-size: 0.88rem;
+    padding: 10px;
+    border-radius: 12px;
+    height: 80px;
+  }
+
+  .hcq-presets {
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .hcq-chip {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  .hcq-sendrow {
+    margin-top: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .hcq-send {
+    padding: 9px 13px;
+    font-size: 0.88rem;
+    border-radius: 12px;
+  }
+
+  .hcq-hint { font-size: 0.75rem; }
+
+  /* Channel / email copy */
+  .hcq-channel {
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 14px;
+  }
+
+  .hcq-channel-head { margin-bottom: 8px; }
+
+  .hcq-kicker { font-size: 0.78rem; }
+
+  .hcq-badge {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  .hcq-copy {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .hcq-email { font-size: 0.85rem; }
+
+  .hcq-copyhint {
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+
+  /* Social cards — side by side on mobile */
+  .hcq-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .hcq-card {
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  .hcq-card-title { font-size: 0.88rem; }
+
+  .hcq-card-sub {
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+
+  .hcq-note {
+    font-size: 0.78rem;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .hcq-toast {
+    font-size: 0.82rem;
+    padding: 8px 12px;
+    bottom: 10px;
   }
 
   /* ---- General ---- */
@@ -3428,6 +3900,39 @@ section, main, footer{
   }
 }
 
+/* Quick-contact bottom-sheet keyframes (mobile) */
+@keyframes hcq-sheet-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes hcq-sheet-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes hcq-backdrop-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes hcq-backdrop-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ==========================================================
    EXTRA SMALL SCREENS (≤ 400px)
    ========================================================== */
@@ -3437,9 +3942,14 @@ section, main, footer{
     font-size: clamp(1.85rem, 8.5vw, 2.2rem) !important;
   }
 
+  .section-eyebrow,
+  .testi-eyebrow {
+    font-size: 0.55rem;
+  }
+
   .section-title,
   .testi-title {
-    font-size: clamp(1.2rem, 5vw, 1.4rem);
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
   }
 
   .hero-subtitle {

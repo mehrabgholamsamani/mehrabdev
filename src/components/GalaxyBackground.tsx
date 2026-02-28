@@ -8,7 +8,7 @@ export function GalaxyBackground() {
     const container = bgRef.current;
     if (!container) return;
 
-    const STAR_COUNT = 120;
+    const STAR_COUNT = window.matchMedia('(max-width: 600px)').matches ? 50 : 120;
     const BIG_STAR_RATIO = 0.15;
     const TINT_RATIO = 0.2;
 

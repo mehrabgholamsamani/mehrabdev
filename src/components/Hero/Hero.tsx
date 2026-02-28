@@ -69,6 +69,8 @@ export function Hero({ onQuickContact }: HeroProps) {
           </div>
 
           <h1>Hi, I'm Mehrab</h1>
+          {/* Persian alternate name — lang="fa" gives crawlers a proper language signal */}
+          <span className="visually-hidden" lang="fa">مهراب غلامسامانی</span>
 
           <div className="hero-subtitle">
             <span id="typewriter">{typewriterText}</span>
@@ -88,9 +90,19 @@ export function Hero({ onQuickContact }: HeroProps) {
           </div>
 
           <p id="heroSummary">
-            Full-Stack Developer building production-ready web apps end-to-end — clean React frontends, scalable
-            Node/Express backends, and fast, well-structured REST APIs.
+            Full-Stack Developer crafting production-ready apps with React, TypeScript, and JavaScript —
+            component-based architecture, Node.js/Express REST APIs, and responsive design built with
+            attention to UI/UX and performance optimization.
           </p>
+
+          <ul className="hero-keyword-list" aria-label="Core technologies">
+            <li>React &amp; TypeScript</li>
+            <li>JavaScript (ES6+)</li>
+            <li>Node.js / Express</li>
+            <li>REST APIs</li>
+            <li>Responsive Design</li>
+            <li>UI/UX &amp; Performance</li>
+          </ul>
 
           <div className="actions">
             <a

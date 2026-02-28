@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import "./style.css";
 import { initPortfolio } from "./legacy/initPortfolio";
 
+import { SeoHead } from "./components/SeoHead";
 import { GalaxyBackground } from "./components/GalaxyBackground";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero/Hero";
@@ -23,6 +24,7 @@ export default function App() {
   const email = "mehrabgholamsamani@gmail.com"; 
   return (
     <>
+      <SeoHead />
       <GalaxyBackground />
 
       <Header onQuickContact={() => document.getElementById("hcqModal")?.classList.add("open")} />

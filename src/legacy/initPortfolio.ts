@@ -19,6 +19,7 @@ export function initPortfolio(): () => void {
         return;
       }
 
+      const isMobile = matchMedia("(max-width: 768px)").matches;
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -27,8 +28,8 @@ export function initPortfolio(): () => void {
           }
         });
       }, {
-        threshold: 0.18,
-        rootMargin: "0px 0px -80px 0px"
+        threshold: isMobile ? 0.05 : 0.18,
+        rootMargin: isMobile ? "0px 0px -10px 0px" : "0px 0px -80px 0px"
       });
 
       items.forEach(el => io.observe(el));
@@ -325,9 +326,10 @@ export function initPortfolio(): () => void {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
         const minSide = Math.min(width, height);
-        RADIUS = Math.max(80, minSide * 0.42);
+        const isMobilePortrait = matchMedia("(max-width: 600px)").matches;
+        RADIUS = Math.max(80, minSide * (isMobilePortrait ? 0.54 : 0.42));
         // Cap so sphere never overflows canvas top/bottom (front-face y = RADIUS + height/2 ≤ height)
-        RADIUS = Math.min(RADIUS, height * 0.44);
+        RADIUS = Math.min(RADIUS, height * (isMobilePortrait ? 0.49 : 0.44));
 
         generateSphereTargets();
         generateConeTargets();
@@ -836,13 +838,14 @@ export function initPortfolio(): () => void {
         return;
       }
 
+      const isMobile = matchMedia("(max-width: 768px)").matches;
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add("is-visible");
           io.unobserve(entry.target);
         });
-      }, { threshold: 0.25 });
+      }, { threshold: isMobile ? 0.06 : 0.25 });
 
       els.forEach(el => io.observe(el));
     })();
@@ -908,7 +911,15 @@ export function initPortfolio(): () => void {
 
       const presetBtns = modal.querySelectorAll("[data-hcq-preset]");
 
+      let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
       function openModal() {
+        // Cancel any in-flight close animation
+        if (closeTimer !== null) {
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+        modal.classList.remove("hcq-closing");
         modal.classList.add("hcq-open");
         modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -917,9 +928,20 @@ export function initPortfolio(): () => void {
       }
 
       function closeModal() {
-        modal.classList.remove("hcq-open");
+        const isMobile = matchMedia("(max-width: 600px)").matches;
         modal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
+
+        if (isMobile) {
+          modal.classList.add("hcq-closing");
+          closeTimer = setTimeout(() => {
+            modal.classList.remove("hcq-open");
+            modal.classList.remove("hcq-closing");
+            closeTimer = null;
+          }, 300); // match hcq-sheet-out duration
+        } else {
+          modal.classList.remove("hcq-open");
+        }
       }
 
       if (heroContactBtn) {
@@ -1030,6 +1052,7 @@ export function initPortfolio(): () => void {
         return;
       }
 
+      const isMobile = matchMedia("(max-width: 768px)").matches;
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1037,7 +1060,7 @@ export function initPortfolio(): () => void {
             io.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.35 });
+      }, { threshold: isMobile ? 0.08 : 0.35 });
 
       heads.forEach(h => io.observe(h));
     })();

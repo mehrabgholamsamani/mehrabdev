@@ -24,8 +24,8 @@ export function Experience() {
               <div className="entry" data-reveal style={{ "--delay": "0ms" } as React.CSSProperties}>
                 <div className="entry-header">
                   <h3>Radin Taviira — Tehran, Iran</h3>
-                  <span className="date exp-date" data-duration="1 year 4 months">
-                    Jan 2024 – Apr 2025
+                  <span className="date exp-date" data-duration="1 year 6 months">
+                    Jan 2024 – Jun 2025
                   </span>
                 </div>
                 <div className="role">Full-Stack Developer</div>
@@ -52,8 +52,8 @@ export function Experience() {
               <div className="entry">
                 <div className="entry-header">
                   <h3>Ali Mohebi Modelling — Tehran, Iran</h3>
-                  <span className="date exp-date" data-duration="9 months">
-                    Feb 2023 – Oct 2023
+                  <span className="date exp-date" data-duration="10 months">
+                    Feb 2023 – Nov 2023
                   </span>
                 </div>
                 <div className="role">Full-Stack Developer</div>
