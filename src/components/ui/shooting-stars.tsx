@@ -12,20 +12,17 @@ interface ShootingStar {
   angle: number;
   speed: number;
   opacity: number;
+  length: number;
 }
 
 interface ShootingStarsProps {
-
   minSpeed?: number;
   maxSpeed?: number;
-
   minDelay?: number;
   maxDelay?: number;
   starColor?: string;
   trailColor?: string;
-
   starWidth?: number;
-
   starHeight?: number;
   className?: string;
 }
@@ -33,9 +30,12 @@ interface ShootingStarsProps {
 const getRandomStartPoint = () => {
   const x = Math.random() * window.innerWidth;
   const y = -80;
-  const angle = 62 + Math.random() * 18;
+  const angle = 50 + Math.random() * 28; // 50–78° for more directional variety
   return { x, y, angle };
 };
+
+// Max simultaneous stars per instance
+const POOL_SIZE = 2;
 
 export const ShootingStars: React.FC<ShootingStarsProps> = ({
   minSpeed = 3,
@@ -48,99 +48,106 @@ export const ShootingStars: React.FC<ShootingStarsProps> = ({
   starHeight = 2,
   className,
 }) => {
-  const [star, setStar] = useState<ShootingStar | null>(null);
+  const [stars, setStars] = useState<ShootingStar[]>([]);
   const rafRef = useRef<number | null>(null);
   const timeoutRef = useRef<number | null>(null);
 
+  // Spawn loop
   useEffect(() => {
-
     const reduce =
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     if (reduce) return;
 
     let cancelled = false;
 
-    const createStar = () => {
+    const addStar = () => {
       if (cancelled) return;
       const { x, y, angle } = getRandomStartPoint();
+      // Per-star trail length: 60%–140% of the base starWidth
+      const length = starWidth * (0.6 + Math.random() * 0.8);
 
-      setStar({
-        id: Date.now(),
-        x,
-        y,
-        angle,
-        speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
-        opacity: 1,
-      });
+      setStars(prev => [
+        ...prev.slice(-(POOL_SIZE - 1)), // keep at most POOL_SIZE-1 existing stars
+        {
+          id: Date.now(),
+          x,
+          y,
+          angle,
+          speed: Math.random() * (maxSpeed - minSpeed) + minSpeed,
+          opacity: 1,
+          length,
+        },
+      ]);
 
-      const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
-      timeoutRef.current = window.setTimeout(createStar, randomDelay);
+      const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+      timeoutRef.current = window.setTimeout(addStar, delay);
     };
 
-    createStar();
+    addStar();
 
     return () => {
       cancelled = true;
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     };
-  }, [minSpeed, maxSpeed, minDelay, maxDelay]);
+  }, [minSpeed, maxSpeed, minDelay, maxDelay, starWidth]);
 
+  // Animation loop — re-subscribes only when pool size changes, not every frame
   useEffect(() => {
-    if (!star) return;
+    if (stars.length === 0) return;
 
-    const moveStar = () => {
-      setStar((prev) => {
-        if (!prev) return null;
-
-        const rad = (prev.angle * Math.PI) / 180;
-        const nx = prev.x + prev.speed * Math.cos(rad);
-        const ny = prev.y + prev.speed * Math.sin(rad);
-        const no = prev.opacity - 0.010;
-
-        if (
-          no <= 0 ||
-          nx < -260 ||
-          nx > window.innerWidth + 260 ||
-          ny < -260 ||
-          ny > window.innerHeight + 260
-        ) {
-          return null;
-        }
-
-        return { ...prev, x: nx, y: ny, opacity: no };
+    const tick = () => {
+      setStars(prev => {
+        if (prev.length === 0) return prev;
+        return prev
+          .map(s => {
+            const rad = (s.angle * Math.PI) / 180;
+            return {
+              ...s,
+              x: s.x + s.speed * Math.cos(rad),
+              y: s.y + s.speed * Math.sin(rad),
+              opacity: s.opacity - 0.008, // slower fade → ~2.1s lifespan at 60fps
+            };
+          })
+          .filter(
+            s =>
+              s.opacity > 0 &&
+              s.x > -260 &&
+              s.x < window.innerWidth + 260 &&
+              s.y > -260 &&
+              s.y < window.innerHeight + 260
+          );
       });
-
-      rafRef.current = requestAnimationFrame(moveStar);
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    rafRef.current = requestAnimationFrame(moveStar);
+    rafRef.current = requestAnimationFrame(tick);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [star]);
+  }, [stars.length]);
 
   const gradId = useRef(`shooting-grad-${Math.random().toString(36).slice(2)}`);
 
   return (
     <svg className={cn("shooting-stars-svg", className)} aria-hidden="true">
-      {star && (
+      {stars.map(s => (
         <rect
-          key={star.id}
-          x={star.x}
-          y={star.y}
-          width={starWidth}
+          key={s.id}
+          x={s.x}
+          y={s.y}
+          width={s.length}
           height={starHeight}
           fill={`url(#${gradId.current})`}
-          opacity={star.opacity}
-          transform={`rotate(${star.angle}, ${star.x}, ${star.y})`}
+          opacity={s.opacity}
+          transform={`rotate(${s.angle}, ${s.x}, ${s.y})`}
           rx={999}
         />
-      )}
+      ))}
 
       <defs>
         <linearGradient id={gradId.current} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor={trailColor} stopOpacity={0} />
-          <stop offset="55%" stopColor={trailColor} stopOpacity={0.22} />
+          <stop offset="55%" stopColor={trailColor} stopOpacity={0.40} />
           <stop offset="100%" stopColor={starColor} stopOpacity={1} />
         </linearGradient>
       </defs>

@@ -44,8 +44,8 @@ export function GalaxyBackground() {
         trailColor="#7DD3FC"
         minSpeed={3}
         maxSpeed={7}
-        minDelay={4200}
-        maxDelay={9800}
+        minDelay={1400}
+        maxDelay={4000}
         starWidth={120}
         starHeight={2}
       />
@@ -55,8 +55,8 @@ export function GalaxyBackground() {
         trailColor="#67E8F9"
         minSpeed={2.5}
         maxSpeed={6}
-        minDelay={5200}
-        maxDelay={12000}
+        minDelay={2000}
+        maxDelay={5500}
         starWidth={140}
         starHeight={2}
       />

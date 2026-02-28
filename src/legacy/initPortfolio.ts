@@ -93,6 +93,15 @@ export function initPortfolio(): () => void {
       let angleY = 0;
       let mouseX = 0, mouseY = 0;
 
+      // Touch repel state (canvas-pixel coords, origin = canvas top-left)
+      let repelX = 0, repelY = 0;
+      let repelActive = false;
+
+      // Mobile double-tap shape cycle
+      const MOBILE_SHAPES = ["sphere", "cone", "heart", "torus", "diamond", "helix"];
+      let mobileShapeIdx = 0;
+      let lastTapTime = 0;
+
       let targetMode = "sphere";
       let hoverCone = false;
       let hoverHeart = false;
@@ -316,7 +325,9 @@ export function initPortfolio(): () => void {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
         const minSide = Math.min(width, height);
-        RADIUS = Math.max(140, minSide * 0.42);
+        RADIUS = Math.max(80, minSide * 0.42);
+        // Cap so sphere never overflows canvas top/bottom (front-face y = RADIUS + height/2 ≤ height)
+        RADIUS = Math.min(RADIUS, height * 0.44);
 
         generateSphereTargets();
         generateConeTargets();
@@ -335,9 +346,54 @@ export function initPortfolio(): () => void {
           const r = canvas.getBoundingClientRect();
           mouseX = e.clientX - r.left - width / 2;
           mouseY = e.clientY - r.top - height / 2;
+          // Also drive the repel effect on desktop hover
+          repelX = e.clientX - r.left;
+          repelY = e.clientY - r.top;
+          repelActive = true;
           pendingMouse = false;
         });
       }, { passive: true });
+
+      canvas.addEventListener("mouseleave", () => {
+        repelActive = false;
+      }, { passive: true });
+
+      const handleTouch = (e) => {
+        if (pendingMouse) return;
+        pendingMouse = true;
+        requestAnimationFrame(() => {
+          const touch = e.touches[0];
+          if (!touch) { pendingMouse = false; return; }
+          const r = canvas.getBoundingClientRect();
+          mouseX = touch.clientX - r.left - width / 2;
+          mouseY = touch.clientY - r.top - height / 2;
+          // repelX/Y in canvas-pixel coords (same space as projX[i]/projY[i])
+          repelX = touch.clientX - r.left;
+          repelY = touch.clientY - r.top;
+          repelActive = true;
+          pendingMouse = false;
+        });
+      };
+      canvas.addEventListener("touchstart", handleTouch, { passive: true });
+      canvas.addEventListener("touchmove", handleTouch, { passive: true });
+      canvas.addEventListener("touchend", (e) => {
+        mouseX = 0;
+        mouseY = 0;
+        repelActive = false;
+
+        // Double-tap: cycle through shapes
+        const now = performance.now();
+        if (now - lastTapTime < 350) {
+          e.preventDefault(); // suppress browser double-tap zoom
+          mobileShapeIdx = (mobileShapeIdx + 1) % MOBILE_SHAPES.length;
+          const nextShape = MOBILE_SHAPES[mobileShapeIdx];
+          targetMode = nextShape;
+          if (nextShape === "heart") startHeartAlign(angleY, 0);
+          lastTapTime = 0; // reset so a third tap starts a fresh window
+        } else {
+          lastTapTime = now;
+        }
+      }, { passive: false });
 
       let running = true;
       const io = new IntersectionObserver(([entry]) => {
@@ -442,6 +498,52 @@ export function initPortfolio(): () => void {
         }
       }
 
+      const REPEL_RADIUS = 140;  // screen-pixel radius of the attract field
+      const REPEL_STRENGTH = 3;  // force per frame (steady displacement = 3/0.095 ≈ 32 units)
+
+      function applyRepel() {
+        // Recompute the same rotation matrices used by drawFrame this frame
+        const rotYr = angleY + mouseX * 0.0014;
+        const rotXr = mouseY * 0.0014;
+        const cyr = Math.cos(rotYr), syr = Math.sin(rotYr);
+        const cxr = Math.cos(rotXr), sxr = Math.sin(rotXr);
+
+        for (let i = 0; i < POINT_COUNT; i++) {
+          // projX[i]/projY[i] are in canvas-pixel space (centerX already added)
+          const dx = projX[i] - repelX;
+          const dy = projY[i] - repelY;
+          const dist2 = dx * dx + dy * dy;
+          if (dist2 >= REPEL_RADIUS * REPEL_RADIUS || dist2 < 0.5) continue;
+
+          const dist = Math.sqrt(dist2);
+          const force = REPEL_STRENGTH * (1 - dist / REPEL_RADIUS);
+
+          // Normalised screen-space pull direction (toward cursor/touch — negated from repel)
+          const ndx = -dx / dist;
+          const ndy = -dy / dist;
+
+          // Perspective scale at this particle's depth
+          const scl = FOV / (FOV + projZ[i]);
+
+          // Undo perspective → get direction in (x1, y2) rotated space
+          const x1d = ndx / scl;
+          const y2d = ndy / scl;
+
+          // Inverse X-rotation (transpose of forward X-rotation matrix, z2=0 assumed)
+          const Yd  =  y2d * cxr;
+          const z1d = -y2d * sxr;
+
+          // Inverse Y-rotation (transpose of forward Y-rotation matrix)
+          const Xd =  x1d * cyr + z1d * syr;
+          const Zd = -x1d * syr + z1d * cyr;
+
+          // Push particle in 3D object space; morphStep will spring it back
+          px[i] += Xd * force;
+          py[i] += Yd * force;
+          pz[i] += Zd * force;
+        }
+      }
+
       let lastT = performance.now();
       function loop(t) {
         requestAnimationFrame(loop);
@@ -467,6 +569,7 @@ export function initPortfolio(): () => void {
 
         morphStep();
         drawFrame();
+        if (repelActive) applyRepel();
       }
 
       function easeOutCubic(x) {

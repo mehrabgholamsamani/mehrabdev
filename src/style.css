@@ -432,6 +432,7 @@ a:hover{
       width: 100%;
       height: 100%;
       display: block;
+      touch-action: pan-y;
     }
 
     .experience-section { margin-top: 120px; }
@@ -2082,16 +2083,21 @@ section, main, footer{
   position: absolute;
   left: 0;
   top: calc(100% + 14px);
-  min-width: 320px;
-  max-width: 380px;
-  padding: 16px;
+  min-width: 340px;
+  max-width: 390px;
+  padding: 18px 20px 20px;
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(15,15,15,0.86);
-  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.11);
+  border-top-color: rgba(52,211,153,0.28);
+  background:
+    linear-gradient(180deg, rgba(52,211,153,0.07) 0%, rgba(52,211,153,0) 68px) no-repeat top / 100% 68px,
+    rgba(13,13,13,0.93);
+  backdrop-filter: blur(18px);
   box-shadow:
-    0 22px 70px rgba(0,0,0,0.65),
-    0 0 0 1px rgba(255,255,255,0.04) inset;
+    0 2px 8px rgba(0,0,0,0.4),
+    0 16px 48px rgba(0,0,0,0.65),
+    0 32px 80px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(52,211,153,0.04) inset;
   z-index: 1400;
 }
 
@@ -2101,19 +2107,19 @@ section, main, footer{
   inset: -1px;
   border-radius: 21px;
   pointer-events: none;
-  background: radial-gradient(1200px 400px at 20% -10%, rgba(255,255,255,0.12), transparent 55%),
-              radial-gradient(900px 300px at 90% 10%, rgba(120,140,255,0.10), transparent 60%),
-              radial-gradient(900px 300px at 10% 110%, rgba(255,140,180,0.08), transparent 60%);
+  background:
+    radial-gradient(700px 220px at 50% -5%, rgba(52,211,153,0.09), transparent 65%),
+    radial-gradient(900px 300px at 90% 10%, rgba(120,140,255,0.07), transparent 60%),
+    radial-gradient(900px 300px at 10% 110%, rgba(125,211,252,0.06), transparent 60%);
   mix-blend-mode: screen;
-  opacity: 0.9;
 }
 
 @keyframes popIn{
-  from{ opacity: 0; transform: translateY(-6px) scale(0.985); filter: blur(1px); }
-  to{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  from{ opacity: 0; transform: translateY(-8px) scale(0.97); filter: blur(2px); }
+  to{   opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
 }
 
-.profile-popover--open{ animation: popIn 180ms ease-out; transform-origin: 22px 0; }
+.profile-popover--open{ animation: popIn 220ms cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: 22px 0; }
 
 .profile-popover::before{
   content: "";
@@ -2123,73 +2129,133 @@ section, main, footer{
   width: 18px;
   height: 18px;
   transform: rotate(45deg);
-  background: rgba(15,15,15,0.86);
-  border-left: 1px solid rgba(255,255,255,0.14);
-  border-top: 1px solid rgba(255,255,255,0.14);
+  background: rgba(13,13,13,0.93);
+  border-left: 1px solid rgba(255,255,255,0.11);
+  border-top: 1px solid rgba(52,211,153,0.28);
 }
 
-.profile-popover__row{ display:flex; align-items:center; gap: 12px; margin-bottom: 10px; }
+/* ---- Header row ---- */
+.profile-popover__row{
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 14px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+
+/* Avatar button reset (prevents default white button background behind the photo) */
+.profile-popover__img-btn{
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 999px;
+  line-height: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  overflow: hidden; /* ensures no square corners show behind the circular image */
+}
+.profile-popover__img-btn:focus-visible{
+  outline: 2px solid rgba(52,211,153,0.5);
+  outline-offset: 3px;
+}
 .profile-popover__img{
-  width: 52px;
-  height: 52px;
+  display: block;
+  width: 64px;
+  height: 64px;
   border-radius: 999px;
   object-fit: cover;
   object-position: 50% 18%;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 2px solid rgba(52,211,153,0.35);
+  box-shadow: 0 0 0 4px rgba(52,211,153,0.08), 0 4px 18px rgba(0,0,0,0.55);
+  flex-shrink: 0;
 }
 
 .profile-popover__title{ font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em; }
-.profile-popover__subtitle{ font-size: 0.92rem; color: rgba(255,255,255,0.72); margin-top: 2px; }
+.profile-popover__subtitle{ font-size: 0.88rem; color: rgba(255,255,255,0.60); margin-top: 3px; }
+.profile-popover__dot{ opacity: 0.5; padding: 0 5px; }
 
-.profile-popover__dot{ opacity: 0.65; padding: 0 6px; }
-
-.profile-popover__status{
+/* Available badge — mirrors the hero availability pill */
+.profile-popover__available{
   margin-left: auto;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.73rem;
+  letter-spacing: 0.02em;
+  padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.78);
+  border: 1px solid rgba(52,211,153,0.22);
+  background: rgba(52,211,153,0.08);
+  color: rgba(167,243,208,0.90);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
+.profile-popover__avail-dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(52,211,153);
+  box-shadow: 0 0 6px rgba(52,211,153,0.65);
+  animation: hero-dot-pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ---- Bio ---- */
 .profile-popover__bio{
-  margin: 10px 0 12px;
-  color: rgba(255,255,255,0.78);
-  line-height: 1.45;
-  font-size: 0.93rem;
+  margin: 14px 0 16px;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.55;
+  font-size: 0.90rem;
 }
 
 .profile-popover__bio strong{
-  color: rgba(255,255,255,0.92);
-  font-weight: 750;
+  color: rgba(255,255,255,0.88);
+  font-weight: 650;
 }
 
+/* ---- Action buttons ---- */
 .profile-popover__actions{
   display: flex;
-  gap: 8px;
-  margin: 10px 0 12px;
+  gap: 7px;
+  margin-bottom: 14px;
 }
 
 .profile-action{
   flex: 1;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
+  font-weight: 500;
   padding: 9px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 11px;
+  border: 1px solid rgba(255,255,255,0.11);
   background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.86);
+  color: rgba(255,255,255,0.78);
   text-decoration: none;
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+  letter-spacing: 0.01em;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
 }
 
 .profile-action:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.20);
+  color: rgba(255,255,255,0.95);
+}
+
+/* Email — green-tinted primary CTA */
+.profile-action--primary{
+  background: rgba(52,211,153,0.10);
+  border-color: rgba(52,211,153,0.28);
+  color: rgba(167,243,208,0.92);
+}
+
+.profile-action--primary:hover{
+  background: rgba(52,211,153,0.17);
+  border-color: rgba(52,211,153,0.45);
+  color: rgba(167,243,208,1);
 }
 
 .profile-action:focus-visible{
@@ -2197,20 +2263,17 @@ section, main, footer{
   outline-offset: 3px;
 }
 
-.profile-popover__tags{ display: flex; flex-wrap: wrap; gap: 8px; }
-.profile-tag{
-  font-size: 0.82rem;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.86);
-}
+/* ---- Skill tags ---- */
+.profile-popover__tags{ display: flex; flex-wrap: wrap; gap: 7px; }
 
-.profile-popover__hint{
-  margin-top: 10px;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.52);
+.profile-tag{
+  font-size: 0.79rem;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(125,211,252,0.20);
+  background: rgba(125,211,252,0.06);
+  color: rgba(186,230,253,0.82);
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 900px){
@@ -2613,8 +2676,8 @@ section, main, footer{
 }
 
 .galaxy-shooting-layer{
-  opacity: 0.72;
-  filter: drop-shadow(0 0 10px rgba(125,211,252,0.18));
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px rgba(125,211,252,0.55)) drop-shadow(0 0 22px rgba(125,211,252,0.22));
 }
 
 .galaxy-star{
@@ -2905,5 +2968,522 @@ section, main, footer{
   50% {
     transform: scale(1.18);
     filter: drop-shadow(0 0 10px rgba(255, 50, 80, 1)) drop-shadow(0 0 22px rgba(255, 50, 80, 0.75)) drop-shadow(0 0 36px rgba(255, 80, 100, 0.45));
+  }
+}
+
+/* ==========================================================
+   MOBILE-FIRST ENHANCEMENTS
+   ========================================================== */
+
+/* -- Hamburger button (hidden on desktop) -- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 999px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.nav-hamburger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.nav-hamburger:hover {
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.07);
+}
+
+/* Show hamburger only on mobile */
+@media (max-width: 900px) {
+  .nav-hamburger { display: flex; }
+}
+
+/* -- Mobile nav overlay -- */
+.mobile-nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  background: rgba(5,5,5,0.97);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 24px 24px;
+  animation: mobileNavIn 0.2s ease-out;
+}
+
+@keyframes mobileNavIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-nav a {
+  color: rgba(255,255,255,0.80);
+  text-decoration: none;
+  font-size: 1.05rem;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  letter-spacing: 0.01em;
+  transition: color 0.15s ease, padding-left 0.15s ease;
+  touch-action: manipulation;
+}
+
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a:active {
+  color: #ffffff;
+  padding-left: 6px;
+}
+
+/* ==========================================================
+   SMALL SCREEN FONT + SPACING FIXES (≤ 600px)
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+  /* Hero h1 — reduce from 3.1rem minimum */
+  .left h1 {
+    font-size: clamp(2.1rem, 9vw, 3.0rem) !important;
+  }
+
+  /* Hero subtitle */
+  .hero-subtitle {
+    font-size: clamp(1.05rem, 4.8vw, 1.35rem);
+  }
+
+  /* Section titles — reduced to restore hierarchy */
+  .section-title {
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+  }
+
+  .testi-title {
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+  }
+
+  /* Hero canvas — tall enough that RADIUS=107px fits at 375px phone */
+  .right {
+    height: clamp(240px, 68vw, 320px) !important;
+    min-height: 0 !important;
+  }
+
+  /* Hero section — no forced full-screen height on mobile */
+  .hero-section {
+    min-height: 0 !important;
+    padding: 24px 0 44px;
+  }
+
+  /* Reduce the upward shift on mobile */
+  .hero {
+    transform: translateY(-6px);
+  }
+
+  /* Action buttons — stack full-width for easy tapping */
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .actions .btn-cv {
+    padding: 16px 56px 16px 26px;
+  }
+
+  /* Hero availability badge */
+  .hero-availability {
+    font-size: 0.85rem;
+    padding: 9px 12px;
+  }
+
+  /* ---- Global section rhythm — 8px-grid vertical spacing ---- */
+
+  /* Hero micro-spacing */
+  .location {
+    margin-bottom: 14px;
+  }
+
+  .left p {
+    margin-bottom: 20px !important;
+  }
+
+  /* Experience */
+  .experience-section {
+    padding-bottom: 36px;
+  }
+
+  .exp-tabs {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Section dividers — 20px clearance instead of 52px */
+  .section-divider {
+    margin: 20px auto;
+  }
+
+  /* Projects — were missing mobile overrides entirely */
+  .projects-section {
+    margin-top: 32px !important;
+    padding-bottom: 40px !important;
+  }
+
+  .projects-grid {
+    gap: 16px;
+  }
+
+  .project-thumb {
+    height: 160px;
+  }
+
+  /* Testimonials */
+  .testimonials-section {
+    padding-top: clamp(48px, 10vw, 80px) !important;
+    padding-bottom: clamp(48px, 10vw, 80px) !important;
+    margin-top: 0 !important;
+  }
+
+  .testi-head {
+    margin-bottom: 28px;
+  }
+
+  /* Skills */
+  .skills-section {
+    margin-top: 40px !important;
+    padding-top: 16px !important;
+    padding-bottom: 48px !important;
+    margin-bottom: 48px !important;
+  }
+
+  .skills-section .section-head {
+    margin-bottom: 28px;
+  }
+
+  /* ---- Skills marquee — compact chips for mobile ---- */
+
+  /* Tighter row gap */
+  .skills-marquee-wrap {
+    gap: 8px;
+  }
+
+  /* Shrink the fade masks so the visible window is wider (191px → 259px) */
+  .skills-marquee-wrap::before,
+  .skills-marquee-wrap::after {
+    width: 36px;
+  }
+
+  /* Less vertical padding per row: 64px → 44px per band */
+  .skills-marquee {
+    padding: 10px 0;
+  }
+
+  /* Chip itself — smaller, ambient, not focal */
+  .skills-chip {
+    padding: 6px 10px;
+    gap: 7px;
+    font-size: 0.75rem;
+  }
+
+  /* Icon scales down with the chip */
+  .skills-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Tighter gap and side padding between chips in the strip */
+  .skills-list {
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  /* Contact */
+  .contact2-section {
+    margin-top: 32px;
+    padding-bottom: 12px;
+  }
+
+  /* Footer */
+  .site-footer {
+    padding: 32px 0 20px;
+  }
+
+  .footer-divider {
+    margin-bottom: 20px;
+  }
+
+  /* ---- Section eyebrow decorative lines — shorter so text doesn't overflow ---- */
+  .section-eyebrow::before,
+  .section-eyebrow::after,
+  .testi-eyebrow::before,
+  .testi-eyebrow::after {
+    width: 22px;
+  }
+
+  /* ---- Experience section ---- */
+  .experience-section {
+    margin-top: 48px;
+  }
+
+  /* Tabs — slimmer touch target, smaller text */
+  .tab {
+    padding: 11px 0;
+    font-size: 0.88rem;
+  }
+
+  /* Exp-card outer chrome — minimal padding, just enough to show the border */
+  .exp-card {
+    padding: 8px 10px;
+  }
+
+  /* Exp entry inner — tighter padding solves the "wall of whitespace" problem */
+  .exp-card .entry {
+    padding: 14px 12px 14px 14px;
+  }
+
+  /* Gap between experience entries */
+  .entry + .entry {
+    margin-top: 12px;
+  }
+
+  /* Entry title — smaller to match tighter layout */
+  .entry-header h3 {
+    font-size: 0.98rem;
+  }
+
+  /* Date badge — smaller */
+  .exp-card .entry-header .date {
+    font-size: 0.82rem;
+    padding: 6px 10px;
+  }
+
+  /* Role subtitle */
+  .role {
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  /* Bullet list — tighter and smaller for narrow mobile columns */
+  .exp-card .entry ul {
+    margin-top: 10px;
+    padding-left: 16px;
+  }
+
+  .exp-card .entry ul li {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 5px;
+  }
+
+  /* Education meta row */
+  .edu-meta {
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+
+  /* ---- Testimonials ---- */
+  .testimonial-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  /* Nav buttons smaller → wrapper padding can be tighter */
+  .nav-btn {
+    font-size: 26px;
+    padding: 6px;
+  }
+
+  .testimonial-wrapper {
+    padding: 0 38px;
+  }
+
+  .nav-btn.left { left: 0; }
+  .nav-btn.right { right: 0; }
+
+  /* ---- Projects ---- */
+  .project-content {
+    padding: 20px 18px;
+  }
+
+  .project-content h3 {
+    font-size: 1.1rem;
+  }
+
+  /* ---- Contact ---- */
+
+  .contact2-card {
+    padding: 20px 18px;
+    gap: 14px;
+  }
+
+  /* Eyebrow row */
+  .contact2-eyebrow {
+    font-size: 0.82rem;
+    margin-bottom: 7px;
+  }
+
+  /* Heading */
+  .contact2-heading {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  /* Sub-text — reduce line-height on narrow column */
+  .contact2-sub {
+    font-size: 0.93rem;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  /* Service chips — read-only labels, no touch-target sizing needed */
+  .contact2-chips {
+    gap: 8px;
+  }
+
+  .contact2-chip {
+    padding: 5px 10px;
+    font-size: 0.82rem;
+  }
+
+  /* Inner box — less nested padding */
+  .contact2-box {
+    padding: 14px;
+  }
+
+  /* Label */
+  .contact2-label {
+    font-size: 0.82rem;
+    margin-bottom: 7px;
+  }
+
+  /* Email button — still comfortable tap target at 11px vertical */
+  .contact2-email {
+    padding: 11px 12px;
+    font-size: 0.93rem;
+  }
+
+  .contact2-copyhint {
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  /* Actions: primary full-width, LinkedIn+GitHub side-by-side */
+  .contact2-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .contact2-btn.primary {
+    grid-column: 1 / -1;
+  }
+
+  /* Buttons — slightly slimmer */
+  .contact2-btn {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  /* Note text */
+  .contact2-note {
+    font-size: 0.83rem;
+    margin-top: 7px;
+  }
+
+  /* ---- General ---- */
+  .section-head {
+    margin-bottom: 32px;
+  }
+
+  /* Profile name in header — hide on very small so it doesn't wrap */
+  .profile-name {
+    display: none;
+  }
+}
+
+/* ==========================================================
+   EXTRA SMALL SCREENS (≤ 400px)
+   ========================================================== */
+
+@media (max-width: 400px) {
+  .left h1 {
+    font-size: clamp(1.85rem, 8.5vw, 2.2rem) !important;
+  }
+
+  .section-title,
+  .testi-title {
+    font-size: clamp(1.2rem, 5vw, 1.4rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 4.5vw, 1.1rem);
+  }
+
+  /* Even tighter exp layout on tiny phones */
+  .exp-card {
+    padding: 6px 8px;
+  }
+
+  .exp-card .entry {
+    padding: 12px 10px 12px 12px;
+  }
+
+  .entry-header h3 {
+    font-size: 0.93rem;
+  }
+}
+
+/* -- Touch-action on interactive elements -- */
+.btn,
+.tab,
+.contact2-btn,
+.contact2-email,
+.nav-icon,
+.footer-icon,
+.hcq-chip,
+.skills-chip,
+.project-card,
+.scrolltop-btn,
+.hcq-x,
+.hcq-send,
+.hcq-copy {
+  touch-action: manipulation;
+}
+
+/* -- Remove 3D tilt on touch devices (no hover support) -- */
+@media (hover: none) {
+  .project-card:hover {
+    transform: none;
+  }
+
+  .exp-card .entry:hover {
+    transform: none;
   }
 }
