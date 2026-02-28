@@ -158,7 +158,7 @@ export function initPortfolio(): () => void {
       const gctx = glowSprite.getContext("2d");
 
       function buildSprites() {
-        const S = isMobile ? 48 : 34;
+        const S = isMobile ? 24 : 34;
         sprite0.width = sprite0.height = S;
         sprite1.width = sprite1.height = S;
 
@@ -167,13 +167,13 @@ export function initPortfolio(): () => void {
           s.fillStyle = "#fff";
           s.textAlign = "center";
           s.textBaseline = "middle";
-          s.font = `${isMobile ? 36 : 24}px sans-serif`;
+          s.font = `${isMobile ? 16 : 24}px sans-serif`;
         });
 
         sctx0.fillText("✵", S / 2, S / 2);
         sctx1.fillText("★", S / 2, S / 2);
 
-        const G = isMobile ? 126 : 106;
+        const G = isMobile ? 64 : 106;
         glowSprite.width = glowSprite.height = G;
         const grad = gctx.createRadialGradient(G / 2, G / 2, 0, G / 2, G / 2, G / 2);
         grad.addColorStop(0, "rgba(255,255,255,0.40)");
@@ -696,7 +696,7 @@ export function initPortfolio(): () => void {
           const x = x1 * scale + centerX + drift;
           const y = y2 * scale + centerY;
 
-          const size = Math.max(isMobile ? 15 : 9, Math.min(isMobile ? 44 : 29, (isMobile ? 34 : 22) * scale));
+          const size = Math.max(isMobile ? 7 : 9, Math.min(isMobile ? 20 : 29, (isMobile ? 15 : 22) * scale));
 
           const depthAlpha = 0.12 + depth01 * 0.95;
           const scaleAlpha = Math.min(1, Math.max(0.18, scale));
