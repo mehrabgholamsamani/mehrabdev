@@ -4,7 +4,9 @@
       "Bash(python3:*)",
       "Bash(echo \"TEMP=$TEMP\")",
       "Bash(cd \"C:/Users/gramm/Desktop/OneDrive/factory/storage/idk/test1\" && npx tsc --noEmit 2>&1)",
-      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\test1\" && npx tsc --noEmit 2>&1)"
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\test1\" && npx tsc --noEmit 2>&1)",
+      "Bash(cd /c/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev && npm run build 2>&1)",
+      "Bash(cd:*)"
     ]
   }
 }

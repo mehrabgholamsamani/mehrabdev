@@ -51,7 +51,7 @@ export function Contact({ email }: Props) {
                 </a>
                 <a
                   className="contact2-btn secondary"
-                  href="https://www.linkedin.com/in/mehrab-gholamsamani-853103393/"
+                  href="https://www.linkedin.com/in/mehrab-samani-853103393/"
                   target="_blank"
                   rel="noreferrer"
                 >

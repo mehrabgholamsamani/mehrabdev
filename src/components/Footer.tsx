@@ -9,7 +9,7 @@ export function Footer() {
         <div className="footer-icons" aria-label="Social links">
           <a
             className="footer-icon icon-linkedin"
-            href="https://www.linkedin.com/in/mehrab-gholamsamani-853103393/"
+            href="https://www.linkedin.com/in/mehrab-samani-853103393/"
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"

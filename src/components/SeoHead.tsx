@@ -39,7 +39,7 @@ const jsonLd = {
   },
   email: "mehrabgholamsamani@gmail.com",
   sameAs: [
-    "https://www.linkedin.com/in/mehrab-gholamsamani-853103393/",
+    "https://www.linkedin.com/in/mehrab-samani-853103393/",
     "https://github.com/mehrabgholamsamani",
   ],
   knowsAbout: [

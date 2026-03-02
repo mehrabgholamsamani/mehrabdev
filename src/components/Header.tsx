@@ -183,7 +183,7 @@ export function Header({ onQuickContact }: HeaderProps) {
                     </a>
                     <a
                       className="profile-action"
-                      href="https://www.linkedin.com/in/mehrab-gholamsamani-853103393/"
+                      href="https://www.linkedin.com/in/mehrab-samani-853103393/"
                       target="_blank"
                       rel="noreferrer"
                       aria-label="Mehrab on LinkedIn"
@@ -237,7 +237,7 @@ export function Header({ onQuickContact }: HeaderProps) {
 
                 <a
                   className="nav-icon"
-                  href="https://www.linkedin.com/in/mehrab-gholamsamani-853103393/"
+                  href="https://www.linkedin.com/in/mehrab-samani-853103393/"
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"

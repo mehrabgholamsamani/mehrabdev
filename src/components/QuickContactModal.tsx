@@ -98,7 +98,7 @@ export function QuickContactModal({ email }: Props) {
             <div className="hcq-grid">
               <a
                 className="hcq-card"
-                href="https://www.linkedin.com/in/mehrab-gholamsamani-853103393/"
+                href="https://www.linkedin.com/in/mehrab-samani-853103393/"
                 target="_blank"
                 rel="noreferrer"
               >
