@@ -26,10 +26,14 @@ export function Skills() {
                 <div className="skills-chip"><span className="skills-icon" data-icon="css" /><span>CSS3</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="js" /><span>JavaScript (ES6+)</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="react" /><span>React.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nextjs" /><span>Next.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nodejs" /><span>Node.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="express" /><span>Express.js</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="api" /><span>RESTful APIs</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="plug" /><span>API Integration</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="git" /><span>Git</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="github" /><span>GitHub</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="gitlab" /><span>GitLab</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="npm" /><span>npm</span></div>
               </div>
 
@@ -38,10 +42,14 @@ export function Skills() {
                 <div className="skills-chip"><span className="skills-icon" data-icon="css" /><span>CSS3</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="js" /><span>JavaScript (ES6+)</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="react" /><span>React.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nextjs" /><span>Next.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nodejs" /><span>Node.js</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="express" /><span>Express.js</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="api" /><span>RESTful APIs</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="plug" /><span>API Integration</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="git" /><span>Git</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="github" /><span>GitHub</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="gitlab" /><span>GitLab</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="npm" /><span>npm</span></div>
               </div>
             </div>
@@ -53,6 +61,9 @@ export function Skills() {
                 <div className="skills-chip"><span className="skills-icon" data-icon="tailwind" /><span>Tailwind CSS</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="bootstrap" /><span>Bootstrap</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="sass" /><span>Sass</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="docker" /><span>Docker</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nginx" /><span>Nginx</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="postgresql" /><span>PostgreSQL</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="semantic" /><span>Semantic HTML</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="ux" /><span>UI/UX Principles</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="agile" /><span>Agile</span></div>
@@ -64,6 +75,9 @@ export function Skills() {
                 <div className="skills-chip"><span className="skills-icon" data-icon="tailwind" /><span>Tailwind CSS</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="bootstrap" /><span>Bootstrap</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="sass" /><span>Sass</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="docker" /><span>Docker</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="nginx" /><span>Nginx</span></div>
+                <div className="skills-chip"><span className="skills-icon" data-icon="postgresql" /><span>PostgreSQL</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="semantic" /><span>Semantic HTML</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="ux" /><span>UI/UX Principles</span></div>
                 <div className="skills-chip"><span className="skills-icon" data-icon="agile" /><span>Agile</span></div>
