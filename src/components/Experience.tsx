@@ -23,7 +23,7 @@ export function Experience() {
             <div className="tab-content active" id="work">
               <div className="entry" data-reveal style={{ "--delay": "0ms" } as React.CSSProperties}>
                 <div className="entry-header">
-                  <h3>Radin Taviira — Tehran, Iran</h3>
+                  <h3>Radin Tavira — Tehran, Iran</h3>
                   <span className="date exp-date" data-duration="1 year 4 months">
                     Jan 2024 – Apr 2025
                   </span>
@@ -31,27 +31,27 @@ export function Experience() {
                 <div className="role">Full-Stack Developer</div>
                 <ul>
                   <li>
-                    Built full stack web applications using the MERN stack, reducing page load times by 40% and
-                    improving user retention.
+                    Owned full-stack feature development using the PERN stack, reducing page load times by 40% through
+                    code splitting and lazy loading.
                   </li>
                   <li>
-                    Designed and integrated RESTful APIs with Node.js and Express, cutting data fetch times by 31% across
-                    production applications.
+                    Architected core backend API services using Node.js and Express, introducing RESTful standards and a
+                    caching strategy that supported future feature development.
                   </li>
                   <li>
-                    Migrated frontend architecture to Next.js with SSR, resulting in noticeably faster load times and
-                    improved SEO rankings.
+                    Led the migration of the frontend architecture from a React SPA to Next.js with server-side rendering
+                    (SSR), improving SEO visibility and initial page load speed for content-heavy pages.
                   </li>
                   <li>
-                    Optimized React state management and component architecture, reducing unnecessary re-renders by 44%
-                    on high-traffic pages.
+                    Refactored React component architecture and state management, eliminating unnecessary renders and
+                    reducing component re-renders by 44% on high-traffic pages.
                   </li>
                 </ul>
               </div>
 
               <div className="entry">
                 <div className="entry-header">
-                  <h3>Ali Mohebi Modelling — Tehran, Iran</h3>
+                  <h3>Mohebi Modelling — Tehran, Iran</h3>
                   <span className="date exp-date" data-duration="9 months">
                     Feb 2023 – Oct 2023
                   </span>
@@ -59,20 +59,22 @@ export function Experience() {
                 <div className="role">Full-Stack Developer</div>
                 <ul>
                   <li>
-                    Built and delivered a client-facing web application using React and JavaScript, contributing to the
-                    client securing two professional modeling contracts.
+                    Architected a solo end-to-end portfolio and booking platform using React, TypeScript, and Tailwind
+                    CSS, independently scoping and delivering the full application 30% faster than the estimated
+                    timeline.
                   </li>
                   <li>
-                    Implemented component-based UI architecture with React, improving code maintainability and making
-                    future updates significantly easier.
+                    Designed a component-based UI architecture from scratch using React, TypeScript, and Zustand for
+                    state management, reducing code duplication by 35% and cutting future feature development time by
+                    27%.
                   </li>
                   <li>
-                    Maintained and iterated on the application post-launch, resolving bugs and improving performance
-                    based on real user feedback.
+                    Optimized frontend performance using React memo, useCallback, and Vite's build optimizations,
+                    reducing average interaction latency by 120ms and improving overall responsiveness.
                   </li>
                   <li>
-                    Optimized frontend performance by reducing unnecessary DOM updates and event listeners, resulting in
-                    a noticeably smoother user experience.
+                    Owned the full post-launch lifecycle by gathering user feedback and shipping iterative improvements,
+                    resolving 15 critical bugs and improving session duration by 22%.
                   </li>
                 </ul>
               </div>
