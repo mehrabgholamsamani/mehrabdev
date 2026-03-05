@@ -42,7 +42,7 @@ export function Footer() {
             </svg>
           </a>
 
-          <a className="footer-icon icon-email" href="mailto:mehrabgholamsamani@gmail.com" aria-label="Email">
+          <a className="footer-icon icon-email" href="mailto:mehrab@mehrabdev.com" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M4.5 7.5h15v10h-15v-10Z"

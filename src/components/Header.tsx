@@ -169,7 +169,7 @@ export function Header({ onQuickContact }: HeaderProps) {
                   </p>
 
                   <div className="profile-popover__actions" aria-label="Quick links">
-                    <a className="profile-action profile-action--primary" href="mailto:mehrabgholamsamani@gmail.com" aria-label="Email Mehrab">
+                    <a className="profile-action profile-action--primary" href="mailto:mehrab@mehrabdev.com" aria-label="Email Mehrab">
                       Email
                     </a>
                     <a
@@ -257,7 +257,7 @@ export function Header({ onQuickContact }: HeaderProps) {
 
                 <a
                   className="nav-icon"
-                  href="mailto:mehrabgholamsamani@gmail.com"
+                  href="mailto:mehrab@mehrabdev.com"
                   aria-label="Email"
                 >
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">

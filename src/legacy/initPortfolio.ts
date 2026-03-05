@@ -969,7 +969,7 @@ export function initPortfolio(): () => void {
 
       function updateMailto() {
         if (!sendLink) return;
-        const base = "mailto:mehrabgholamsamani@gmail.com";
+        const base = "mailto:mehrab@mehrabdev.com";
         const body = (textarea?.value || "").trim();
         const subject = "Portfolio inquiry";
         const href = body

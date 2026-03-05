@@ -37,7 +37,7 @@ const jsonLd = {
     addressLocality: "Tampere",
     addressCountry: "FI",
   },
-  email: "mehrabgholamsamani@gmail.com",
+  email: "mehrab@mehrabdev.com",
   sameAs: [
     "https://www.linkedin.com/in/mehrab-samani-853103393/",
     "https://github.com/mehrabgholamsamani",

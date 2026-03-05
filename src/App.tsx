@@ -22,10 +22,18 @@ export default function App() {
   }, []);
 
   const openModal = useCallback(() => {
-    document.getElementById("hcqModal")?.classList.add("open");
+    const modal = document.getElementById("hcqModal");
+    if (!modal) return;
+    modal.classList.remove("hcq-closing");
+    modal.classList.add("hcq-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => {
+      (document.getElementById("hcqMessage") as HTMLTextAreaElement | null)?.focus();
+    }, 50);
   }, []);
 
-  const email = "mehrabgholamsamani@gmail.com";
+  const email = "mehrab@mehrabdev.com";
   return (
     <>
       <SeoHead />
