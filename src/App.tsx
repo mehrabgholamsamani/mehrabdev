@@ -9,6 +9,7 @@ import { Hero } from "./components/Hero/Hero";
 import { Experience } from "./components/Experience";
 import { CodeEditor } from "./components/CodeEditor";
 import { Projects } from "./components/Projects";
+import { DesktopSection } from "./components/DesktopSection";
 import { Testimonials } from "./components/Testimonials";
 import { Skills } from "./components/Skills";
 import { TechOrbit } from "./components/TechOrbit";
@@ -47,6 +48,7 @@ export default function App() {
       <Experience />
       <CodeEditor />
       <Projects />
+      <DesktopSection />
       <Testimonials />
       <Skills />
       <TechOrbit />

@@ -5058,3 +5058,9 @@ section, main, footer{
   .orbit-popup          { animation: none; }
   .orbit-popup-bar-fill { animation: none; }
 }
+
+/* ---- Desktop section — hidden on mobile ---- */
+@media (max-width: 768px) {
+  .desktop-section { display: none !important; }
+}
+

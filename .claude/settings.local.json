@@ -7,7 +7,20 @@
       "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\test1\" && npx tsc --noEmit 2>&1)",
       "Bash(cd /c/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev && npm run build 2>&1)",
       "Bash(cd:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(cd /c/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev && npm install lucide-react && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p 2>&1)",
+      "Bash(cd /c/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev && npm uninstall lucide-react tailwindcss postcss autoprefixer 2>&1)",
+      "Bash(cd /c/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev && npm install lucide-react && npm install -D tailwindcss postcss autoprefixer 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && npx tsc -b --noEmit 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && npm run build 2>&1)",
+      "Bash(cd C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev:*)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && npm install -D @tailwindcss/postcss 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && grep -c \"flex\" dist/assets/index-*.css 2>&1 && grep -c \"rounded\" dist/assets/index-*.css 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && npm install -D tailwindcss@3 2>&1)",
+      "Bash(cd \"C:\\\\Users\\\\gramm\\\\Desktop\\\\OneDrive\\\\factory\\\\storage\\\\idk\\\\mehrabdev\" && node -e \"const css=require\\('fs'\\).readFileSync\\('dist/assets/'+require\\('fs'\\).readdirSync\\('dist/assets'\\).find\\(f=>f.endsWith\\('.css'\\)\\),'utf8'\\); const idx=css.indexOf\\('#1a1a1a'\\); console.log\\(css.substring\\(idx-40, idx+40\\)\\);\" 2>&1)",
+      "Bash(cd \"C:/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev\" && node -e \"var f=require\\('fs'\\); var css=f.readFileSync\\('dist/assets/'+f.readdirSync\\('dist/assets'\\).find\\(function\\(x\\){return x.endsWith\\('.css'\\)}\\),'utf8'\\); var i=css.indexOf\\('opacity:'\\); console.log\\(css.substring\\(i-30,i+60\\)\\);\" 2>&1)",
+      "Bash(true:*)",
+      "Bash(cd \"C:/Users/gramm/Desktop/OneDrive/factory/storage/idk/mehrabdev\" && npm run build 2>&1)"
     ]
   }
 }
