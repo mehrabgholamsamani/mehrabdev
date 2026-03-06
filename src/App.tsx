@@ -11,6 +11,7 @@ import { CodeEditor } from "./components/CodeEditor";
 import { Projects } from "./components/Projects";
 import { Testimonials } from "./components/Testimonials";
 import { Skills } from "./components/Skills";
+import { TechOrbit } from "./components/TechOrbit";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { QuickContactModal } from "./components/QuickContactModal";
@@ -48,6 +49,7 @@ export default function App() {
       <Projects />
       <Testimonials />
       <Skills />
+      <TechOrbit />
       <Contact email={email} onQuickContact={openModal} />
       <Footer />
 
