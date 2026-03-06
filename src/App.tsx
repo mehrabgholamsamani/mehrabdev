@@ -7,6 +7,7 @@ import { GalaxyBackground } from "./components/GalaxyBackground";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero/Hero";
 import { Experience } from "./components/Experience";
+import { CodeEditor } from "./components/CodeEditor";
 import { Projects } from "./components/Projects";
 import { Testimonials } from "./components/Testimonials";
 import { Skills } from "./components/Skills";
@@ -43,6 +44,7 @@ export default function App() {
       <Hero onQuickContact={openModal} />
 
       <Experience />
+      <CodeEditor />
       <Projects />
       <Testimonials />
       <Skills />

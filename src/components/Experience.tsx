@@ -1,4 +1,5 @@
 import React from "react";
+import { Stats } from "./Stats";
 
 export function Experience() {
   return (
@@ -96,6 +97,8 @@ export function Experience() {
               </div>
             </div>
           </div>
+
+          <Stats />
         </div>
       </section>
     </>
