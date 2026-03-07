@@ -396,22 +396,6 @@ const DesktopEnvironment = () => {
       )
     },
     {
-      id: 'github', label: 'GitHub',
-      icon: (
-        <div className="w-16 h-16 bg-gradient-to-b from-gray-700 to-gray-900 rounded-xl shadow-lg flex items-center justify-center border border-gray-600">
-          <Github className="w-9 h-9 text-white drop-shadow-md" />
-        </div>
-      )
-    },
-    {
-      id: 'linkedin', label: 'LinkedIn',
-      icon: (
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-lg flex items-center justify-center">
-          <Linkedin className="w-9 h-9 text-white drop-shadow-md" />
-        </div>
-      )
-    },
-    {
       id: 'apps', label: 'Apps',
       icon: (
         <div className="w-16 h-16 bg-gradient-to-br from-slate-600 to-slate-800 rounded-xl shadow-lg flex items-center justify-center overflow-hidden relative">
@@ -429,6 +413,22 @@ const DesktopEnvironment = () => {
               <Gamepad2 className="w-3 h-3 text-white" />
             </div>
           </div>
+        </div>
+      )
+    },
+    {
+      id: 'linkedin', label: 'LinkedIn',
+      icon: (
+        <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl shadow-lg flex items-center justify-center">
+          <Linkedin className="w-9 h-9 text-white drop-shadow-md" />
+        </div>
+      )
+    },
+    {
+      id: 'github', label: 'GitHub',
+      icon: (
+        <div className="w-16 h-16 bg-gradient-to-b from-gray-700 to-gray-900 rounded-xl shadow-lg flex items-center justify-center border border-gray-600">
+          <Github className="w-9 h-9 text-white drop-shadow-md" />
         </div>
       )
     },
@@ -548,6 +548,7 @@ const DesktopEnvironment = () => {
               }
             }}
             onDoubleClick={() => handleDesktopIconDoubleClick(icon.id)}
+            style={icon.id === 'github' ? { gridColumnStart: 1 } : undefined}
             className={`flex flex-col items-center gap-1.5 p-2 rounded-xl transition-all duration-150 w-[80px] group ${
               selectedIcons.includes(icon.id) ? 'bg-white/15 backdrop-blur-sm ring-1 ring-white/30' : 'hover:bg-white/5'
             }`}
